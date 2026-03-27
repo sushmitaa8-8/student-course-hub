@@ -1,0 +1,616 @@
+/*
+================================================================================
+STUDENT COURSE HUB - SHARED STYLESHEET
+================================================================================
+This CSS file controls the look and feel of the whole template project.
+
+Teaching notes:
+- :root stores reusable variables such as colours and border radius.
+- Shared classes like .container, .card, and .btn keep the design consistent.
+- Media queries near the bottom help the layout adapt to smaller screens.
+- This file is heavily commented so students can match style rules to page parts.
+================================================================================
+*/
+
+/* CSS variables make it easier to reuse colours and values across the site. */
+:root {
+    --bg: #f6f8fb;
+    --surface: #ffffff;
+    --surface-muted: #eef3f9;
+    --text: #1b2430;
+    --text-soft: #5f6b7a;
+    --primary: #1f6feb;
+    --primary-dark: #154ea3;
+    --danger: #c0392b;
+    --border: #d8e1ec;
+    --shadow: 0 10px 30px rgba(16, 24, 40, 0.08);
+    --radius: 18px;
+}
+
+/* Include padding and border inside width/height calculations. */
+* {
+    box-sizing: border-box;
+}
+
+/* Smooth scrolling helps when users jump to anchors on the page. */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Base body styles for the whole site. */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url('/student-course-hub/public/assets/images/campus.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* Default link styling. */
+a {
+    color: var(--primary-dark);
+    text-decoration: none;
+}
+
+/* Add underline when a user hovers or tabs onto a link. */
+a:hover,
+a:focus {
+    text-decoration: underline;
+}
+
+/* Make images responsive by default. */
+img {
+    max-width: 100%;
+    display: block;
+}
+
+/*
+    .container keeps content centred and prevents it from stretching too wide.
+    min() chooses the smaller value between:
+    - 1120px
+    - 100% width minus 2rem
+*/
+.container {
+    width: min(1120px, calc(100% - 2rem));
+    margin: 0 auto;
+}
+
+/* Use .narrow on form pages to reduce the reading width. */
+.narrow {
+    width: min(760px, calc(100% - 2rem));
+}
+
+/*
+    Skip link:
+    Hidden off-screen until a keyboard user tabs to it.
+    This improves accessibility.
+*/
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: #000;
+    color: #fff;
+    padding: 0.75rem 1rem;
+    z-index: 1000;
+}
+
+.skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+}
+
+/* Sticky header stays visible while the user scrolls. */
+.site-header {
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(6px);
+}
+
+/* Flexbox places the title area and navigation side by side. */
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.site-title {
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+/*
+    Eyebrow text is the small uppercase label used above headings.
+    It helps create visual hierarchy.
+*/
+.eyebrow {
+    margin: 0 0 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #7db2ff;
+}
+
+/* Remove bullets and spacing from shared list classes. */
+.main-nav ul,
+.footer-links,
+.feature-list,
+.simple-list,
+.side-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Navigation links wrap neatly on smaller screens. */
+.main-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: flex-end;
+}
+
+/* Rounded navigation pills. */
+.main-nav a {
+    display: inline-block;
+    color: #fff;
+    padding: 0.6rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 0.95rem;
+}
+
+/* Active nav link and focused/hovered link share the same highlight colour. */
+.main-nav a.active,
+.main-nav a:hover,
+.main-nav a:focus {
+    background: var(--primary);
+    text-decoration: none;
+}
+
+/* Hero section creates a strong first impression on the home page. */
+.hero {
+    padding: 5rem 0 4rem;
+    color: #fff;
+}
+/*
+    These selectors all use CSS Grid.
+    This saves repetition because each one needs display:grid and gap.
+*/
+.hero-grid,
+.auth-grid,
+.programme-layout,
+.dashboard-grid,
+.grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+/* The hero uses two columns: content + summary card. */
+.hero-grid {
+    grid-template-columns: 1.3fr 0.8fr;
+    align-items: center;
+}
+
+/* Remove default top spacing from major headings in card layouts. */
+.hero h2,
+.section-heading h2,
+.auth-info h2,
+.programme-layout h2 {
+    margin-top: 0;
+    line-height: 1.2;
+}
+
+/* Slightly larger introductory paragraph. */
+.lead {
+    font-size: 1.05rem;
+    color: inherit;
+    opacity: 0.92;
+}
+
+/* Standard vertical spacing for sections. */
+.section {
+    padding: 3rem 0;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+/* Light alternative background used to break up the page visually. */
+.section-muted {
+    background: rgba(255, 255, 255, 0.07);
+}
+
+.section-heading {
+    margin-bottom: 1.5rem;
+}
+.section-heading h2,
+.section-heading p {
+    color: #ffffff;
+}
+
+/* Reusable grid helper classes. */
+.grid-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/*
+    Card is one of the most important reusable classes in the whole project.
+    It gives white background, border, rounded corners, padding, and shadow.
+*/
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    color: var(--text);
+}
+
+.hero-card {
+    color: var(--text);
+}
+
+/* Shared button styling. */
+.btn {
+    display: inline-block;
+    border: none;
+    border-radius: 999px;
+    padding: 0.85rem 1.25rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn:hover,
+.btn:focus {
+    text-decoration: none;
+}
+
+/* Primary action button. */
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background: var(--primary-dark);
+}
+
+/* Outline button for secondary actions. */
+.btn-outline {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.btn-outline:hover,
+.btn-outline:focus {
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+}
+
+/* Danger button for destructive actions such as deleting or withdrawing. */
+.btn-danger {
+    background: var(--danger);
+    color: #fff;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+    filter: brightness(0.95);
+}
+
+/* Smaller button variant used inside programme cards. */
+.small {
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Group buttons with spacing between them. */
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+/* Text link style used in homepage cards. */
+.text-link {
+    font-weight: 700;
+}
+
+/* Generic tag/pill used to label programme level. */
+.tag {
+    display: inline-block;
+    margin-bottom: 0.85rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: var(--surface-muted);
+    color: var(--primary-dark);
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+/* Forms */
+.toolbar,
+.form-card {
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+}
+
+/*
+    Shared input styling:
+    applies to text inputs, email inputs, password fields, select boxes, and textareas.
+*/
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font: inherit;
+    background: #fff;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: 3px solid rgba(31, 111, 235, 0.18);
+    border-color: var(--primary);
+}
+
+/* Grid wrapper for multiple form groups in one row. */
+.form-row {
+    display: grid;
+    gap: 1rem;
+}
+
+.two-col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Checkbox rows for consent and remember me. */
+.checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1rem 0 1.25rem;
+    flex-wrap: wrap;
+}
+
+/* Space content apart across the full row. */
+.between {
+    justify-content: space-between;
+}
+
+/* Programme details page layout. */
+.programme-layout {
+    grid-template-columns: 1.5fr 0.8fr;
+    align-items: start;
+}
+
+.sidebar-card {
+    position: sticky;
+    top: 7rem;
+}
+
+.side-list li + li,
+.feature-list li + li,
+.simple-list li + li {
+    margin-top: 0.6rem;
+}
+
+/* Auth page layout. */
+.auth-grid {
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: start;
+}
+
+.compact li + li {
+    margin-top: 0.45rem;
+}
+
+/* Staff profile helper styles. */
+.profile-card {
+    text-align: center;
+}
+
+.avatar {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--surface-muted);
+    color: var(--primary-dark);
+    font-weight: 700;
+    font-size: 1.15rem;
+}
+
+.muted {
+    color: var(--text-soft);
+}
+
+/* Timeline on the homepage. */
+.timeline {
+    display: grid;
+    gap: 1rem;
+}
+
+.timeline-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.timeline-item:last-child {
+    border-bottom: none;
+}
+
+.timeline-item span {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    font-weight: 700;
+}
+
+/* Dashboard stat cards centre the numbers. */
+.stat-card {
+    text-align: center;
+}
+
+.stat-card h3 {
+    margin: 0 0 0.25rem;
+    font-size: 2rem;
+}
+
+/* Tables */
+.table-card {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 0.95rem;
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    background: var(--surface-muted);
+}
+
+/* Footer */
+.site-footer {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    color: #d7dfeb;
+    padding: 2.5rem 0;
+    margin-top: 2rem;
+}
+
+.site-footer h2 {
+    color: #fff;
+    margin-top: 0;
+}
+
+.site-footer a {
+    color: #d7dfeb;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.footer-links li + li {
+    margin-top: 0.6rem;
+}
+
+/*
+================================================================================
+RESPONSIVE STYLES
+================================================================================
+These rules override earlier layouts when the screen becomes narrower.
+This is an important part of making the site mobile-friendly.
+================================================================================
+*/
+
+@media (max-width: 900px) {
+    /* Stack large two-column and three-column layouts into one column. */
+    .hero-grid,
+    .programme-layout,
+    .auth-grid,
+    .grid-2,
+    .grid-3,
+    .footer-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Sticky sidebar is less useful on small screens, so make it normal. */
+    .sidebar-card {
+        position: static;
+    }
+
+    /* Header items stack for better space usage. */
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    /* Align nav to the left after stacking. */
+    .main-nav ul {
+        justify-content: flex-start;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Put paired form inputs into a single column on small phones. */
+    .two-col {
+        grid-template-columns: 1fr;
+    }
+
+    /* Stack checkbox content if space is tight. */
+    .between {
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+}
+.page-programmes,
+.page-modules,
+.page-staff,
+.page-interest,
+.page-withdraw,
+.page-login,
+.page-admin {
+    background-image: url('/student-course-hub/public/assets/images/home.jpg');
+}
+
+.programme-card .btn-outline {
+    background: var(--primary);
+    color: #ffffff;
+    border: 2px solid var(--primary);
+}
+
+.programme-card .btn-outline:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
